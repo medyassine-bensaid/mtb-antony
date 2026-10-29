@@ -18,7 +18,7 @@ To drop the mirror: delete the workflow file and set *Settings → Pages* to dis
 
 ```bash
 npm ci
-npm run build      # uses base /mtb-antony by default
+npm run build      # root base, main Vercel URL
 npm run preview    # http://localhost:4321/
 ```
 
