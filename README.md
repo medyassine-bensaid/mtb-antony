@@ -3,7 +3,7 @@
 Official site for METS-TOI BIEN (MTB), 209 avenue de la Division Leclerc, 92160 Antony.
 Static site built with Astro + Tailwind CSS. French only.
 
-**Live:** https://medyassine-bensaid.github.io/mtb-antony/ — deployed by GitHub Actions on every push to `main`.
+**Live:** https://metstoibien.vercel.app (mirror: https://medyassine-bensaid.github.io/mtb-antony/) — both redeploy on every push to `main`.
 
 ```bash
 npm install
