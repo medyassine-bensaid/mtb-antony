@@ -1,0 +1,21 @@
+---
+/**
+ * Typographic wordmark for MTB. This is NOT an official logo:
+ * replace with the owner's logo if one exists (see docs/ASSETS.md).
+ */
+export interface Props { size?: 'sm' | 'lg'; class?: string }
+const { size = 'sm', class: cls = '' } = Astro.props;
+---
+<span class:list={['inline-flex items-center gap-3', cls]}>
+  <span
+    class:list={[
+      'grid shrink-0 place-items-center rounded-full bg-amber font-display text-white',
+      size === 'lg' ? 'h-16 w-16 text-[1.35rem]' : 'h-10 w-10 text-[0.95rem]',
+    ]}
+    aria-hidden="true"
+  >MTB</span>
+  <span class="flex flex-col whitespace-nowrap leading-none">
+    <span class:list={['display tracking-[0.02em]', size === 'lg' ? 'text-3xl' : 'text-[1.35rem]']}>Mets-toi bien</span>
+    <span class="mt-1 text-[0.62rem] font-semibold uppercase tracking-[0.3em] text-cream/55">Antony · 92160</span>
+  </span>
+</span>

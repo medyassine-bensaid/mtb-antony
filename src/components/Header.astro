@@ -1,0 +1,79 @@
+---
+import { url } from '../lib/url';
+import Wordmark from './Wordmark.astro';
+import { restaurant } from '../data/restaurant';
+
+const nav = [
+  { href: url('/#carte'), label: 'La carte' },
+  { href: url('/#incontournables'), label: 'Incontournables' },
+  { href: url('/#commander'), label: 'Commander' },
+  { href: url('/#infos'), label: 'Horaires & accès' },
+];
+---
+<header
+  id="site-header"
+  class="fixed inset-x-0 top-0 z-50 transition-[background-color,box-shadow,transform] duration-500 data-[scrolled=true]:bg-coal/85 data-[scrolled=true]:shadow-[0_1px_0_rgba(244,235,221,0.08)] data-[scrolled=true]:backdrop-blur-md"
+  data-scrolled="false"
+>
+  <div class="wrap flex h-[var(--header-h)] items-center justify-between gap-6">
+    <a href={url('/')} class="rounded-full" aria-label="Mets-toi bien — accueil">
+      <Wordmark />
+    </a>
+
+    <nav aria-label="Navigation principale" class="hidden xl:block">
+      <ul class="flex items-center gap-8 whitespace-nowrap text-[0.95rem] font-medium">
+        {nav.map((l) => (
+          <li>
+            <a href={l.href} class="group relative py-2 text-cream/80 transition-colors hover:text-cream">
+              {l.label}
+              <span class="absolute inset-x-0 -bottom-0.5 h-px origin-left scale-x-0 bg-amber transition-transform duration-500 group-hover:scale-x-100" />
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <div class="flex items-center gap-2">
+      <a href={restaurant.phone.href} class="btn btn-ghost hidden !min-h-[2.75rem] !px-5 md:inline-flex">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>
+        {restaurant.phone.display}
+      </a>
+      <a href={url('/#carte')} class="btn btn-primary hidden !min-h-[2.75rem] !px-5 sm:inline-flex">La carte</a>
+
+      <button
+        type="button"
+        id="menu-toggle"
+        class="group relative grid h-11 w-11 place-items-center rounded-full border border-cream/20 xl:hidden"
+        aria-expanded="false"
+        aria-controls="mobile-nav"
+        aria-label="Ouvrir le menu"
+      >
+        <span class="absolute block h-[2px] w-5 -translate-y-[4px] bg-cream transition-transform duration-500 group-aria-expanded:translate-y-0 group-aria-expanded:rotate-45" />
+        <span class="absolute block h-[2px] w-5 translate-y-[4px] bg-cream transition-transform duration-500 group-aria-expanded:translate-y-0 group-aria-expanded:-rotate-45" />
+      </button>
+    </div>
+  </div>
+
+  <div
+    id="mobile-nav"
+    class="fixed inset-x-0 bottom-0 top-[var(--header-h)] flex flex-col bg-coal px-4 pb-8 pt-6 opacity-0 transition-[opacity,visibility] duration-500 invisible data-[open=true]:visible data-[open=true]:opacity-100 sm:px-6 xl:hidden"
+    data-open="false"
+  >
+    <nav aria-label="Navigation mobile" class="flex-1">
+      <ul class="flex flex-col">
+        {nav.map((l, i) => (
+          <li class="border-b border-cream/10">
+            <a href={l.href} class="mobile-link flex items-baseline justify-between py-5" style={`--d:${i}`}>
+              <span class="display text-[2.6rem]">{l.label}</span>
+              <span class="font-serif text-lg italic text-amber">0{i + 1}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+    <div class="grid gap-3">
+      <a href={restaurant.phone.href} class="btn btn-primary w-full">Appeler le {restaurant.phone.display}</a>
+      <a href={restaurant.links.directions} target="_blank" rel="noopener" class="btn btn-ghost w-full">Itinéraire</a>
+    </div>
+  </div>
+</header>

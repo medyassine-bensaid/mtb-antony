@@ -1,0 +1,33 @@
+---
+import Base from '../layouts/Base.astro';
+import LegalPage from '../components/LegalPage.astro';
+import { restaurant } from '../data/restaurant';
+---
+<Base title={`Confidentialité — ${restaurant.fullName}`} description="Politique de confidentialité du site de METS-TOI BIEN (MTB), Antony.">
+  <LegalPage title="Confidentialité" updated="29 octobre 2026">
+    <section>
+      <h2>En bref</h2>
+      <p>Ce site ne dépose aucun cookie, n’utilise aucun outil de mesure d’audience ni de publicité, et ne contient aucun formulaire. Nous ne collectons aucune donnée personnelle via ce site.</p>
+    </section>
+    <section>
+      <h2>Hébergement et journaux techniques</h2>
+      <p>Comme tout site, notre hébergeur (GitHub Pages) traite des données techniques (adresse IP, navigateur, page demandée) dans des journaux de connexion, pour assurer la sécurité et le bon fonctionnement du service. Ces journaux sont conservés pour une durée limitée par l’hébergeur.</p>
+    </section>
+    <section>
+      <h2>Polices de caractères</h2>
+      <p>Les polices sont hébergées sur notre propre serveur : aucune requête n’est envoyée à un service tiers pour les afficher.</p>
+    </section>
+    <section>
+      <h2>Carte interactive</h2>
+      <p>La carte de la section « Horaires &amp; accès » n’est chargée que si tu cliques sur « Afficher la carte ». Elle est alors fournie par OpenStreetMap, qui reçoit ton adresse IP. Voir la <a href="https://wiki.osmfoundation.org/wiki/Privacy_Policy" rel="noopener">politique de confidentialité d’OpenStreetMap</a>.</p>
+    </section>
+    <section>
+      <h2>Liens vers d’autres services</h2>
+      <p>Les boutons « Itinéraire », « Avis Google », « Uber Eats », « Deliveroo » et « Instagram » t’envoient vers ces services. Leur propre politique de confidentialité s’applique alors.</p>
+    </section>
+    <section>
+      <h2>Tes droits</h2>
+      <p>Pour toute question, contacte-nous au <a href={restaurant.phone.href}>{restaurant.phone.display}</a>. Tu peux aussi saisir la <a href="https://www.cnil.fr" rel="noopener">CNIL</a>.</p>
+    </section>
+  </LegalPage>
+</Base>

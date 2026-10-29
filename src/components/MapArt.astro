@@ -1,0 +1,35 @@
+---
+/** Stylised street plan around MTB (based on the public street layout). Decorative. */
+export interface Props { class?: string }
+const { class: cls = '' } = Astro.props;
+---
+<svg class={cls} viewBox="0 0 600 400" role="img" aria-label="Plan stylisé : Mets-toi bien se trouve sur l’avenue de la Division Leclerc, à l’angle de la rue de la Mutualité, près de la rue des Rabats">
+  <rect width="600" height="400" fill="#1C1814" />
+  <g stroke="#2E2720" stroke-width="1">
+    {Array.from({ length: 16 }).map((_, i) => <line x1={i * 40} y1="0" x2={i * 40} y2="400" />)}
+    {Array.from({ length: 11 }).map((_, i) => <line x1="0" y1={i * 40} x2="600" y2={i * 40} />)}
+  </g>
+  <!-- secondary streets -->
+  <g stroke="#3A3129" stroke-width="10" stroke-linecap="round" fill="none">
+    <path d="M330 175 L520 40" />
+    <path d="M330 250 L600 120" />
+    <path d="M330 330 L600 300" />
+    <path d="M60 0 L150 400" />
+    <path d="M0 120 L300 20" />
+  </g>
+  <!-- main avenue -->
+  <path d="M250 -10 L300 410" stroke="#F4EBDD" stroke-opacity="0.9" stroke-width="22" stroke-linecap="round" />
+  <path d="M250 -10 L300 410" stroke="#1C1814" stroke-width="2" stroke-dasharray="10 12" />
+  <g font-family="'Bricolage Grotesque Variable', system-ui, sans-serif" font-size="13" font-weight="600" fill="#B9AC98" letter-spacing="1">
+    <text transform="translate(238 300) rotate(-83)">AV. DE LA DIVISION LECLERC</text>
+    <text transform="translate(408 128) rotate(-35)">RUE DE LA MUTUALITÉ</text>
+    <text transform="translate(430 222) rotate(-25)">RUE DES RABATS</text>
+  </g>
+  <!-- pin -->
+  <g transform="translate(318 190)">
+    <circle r="34" fill="#F7931E" opacity="0.18" class="glow-breathe" />
+    <circle r="18" fill="#F7931E" />
+    <text y="5" text-anchor="middle" font-family="Anton, Impact, sans-serif" font-size="12" fill="#FFFFFF">MTB</text>
+  </g>
+  <text x="348" y="196" font-family="Anton, Impact, sans-serif" font-size="22" fill="#F4EBDD" letter-spacing="1">209</text>
+</svg>

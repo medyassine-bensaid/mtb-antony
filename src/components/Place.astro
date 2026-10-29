@@ -1,0 +1,47 @@
+---
+import { url } from '../lib/url';
+import MapArt from './MapArt.astro';
+import { photos } from '../data/photos';
+import { restaurant } from '../data/restaurant';
+
+const facts = [
+  { k: 'Sur place', v: 'Une salle vitrée sur l’avenue, pour manger au chaud.' },
+  { k: 'À emporter', v: 'Commande au comptoir ou par téléphone, et c’est parti.' },
+  { k: 'Livraison', v: 'Via Uber Eats et Deliveroo, autour d’Antony.' },
+];
+---
+<section id="le-lieu" class="grain relative overflow-hidden py-24 sm:py-32" aria-labelledby="place-title">
+  <div class="wrap grid items-center gap-14 lg:grid-cols-2 lg:gap-20">
+    <div class="relative order-2 lg:order-1">
+      <div class="relative aspect-[3/2] overflow-hidden rounded-[2px]" data-reveal="mask">
+        {photos.interior.src ? (
+          <img src={url(photos.interior.src)} alt={photos.interior.alt} loading="lazy" class="parallax h-full w-full scale-110 object-cover" width="1500" height="1000" />
+        ) : (
+          <MapArt class="parallax h-full w-full scale-110" />
+        )}
+      </div>
+      <p class="absolute -bottom-6 right-4 rounded-full bg-cream px-5 py-2.5 text-[0.8rem] font-semibold text-coal shadow-lg sm:right-8">
+        {restaurant.address.street}
+      </p>
+    </div>
+
+    <div class="order-1 lg:order-2">
+      <p class="eyebrow" data-reveal>Le lieu</p>
+      <h2 id="place-title" class="display mt-5 text-[clamp(3rem,8vw,5.8rem)]" data-reveal style="--d:1">
+        Une vitrine <span class="accent-serif text-amber">allumée</span> sur l’avenue
+      </h2>
+      <p class="mt-6 max-w-lg text-lg text-cream/75" data-reveal style="--d:2">
+        Grandes baies vitrées, lumière chaude, tables en bois : on te sert à midi comme tard le soir,
+        sur l’avenue de la Division Leclerc, côté Rabats.
+      </p>
+      <dl class="mt-10 grid gap-px overflow-hidden rounded-[2px] bg-cream/10 sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3">
+        {facts.map((f, i) => (
+          <div class="bg-coal p-5" data-reveal style={`--d:${i + 2}`}>
+            <dt class="display text-2xl text-amber">{f.k}</dt>
+            <dd class="mt-2 text-[0.92rem] leading-snug text-cream/65">{f.v}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  </div>
+</section>

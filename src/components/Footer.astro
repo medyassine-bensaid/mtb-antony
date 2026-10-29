@@ -1,0 +1,51 @@
+---
+import { url } from '../lib/url';
+import Wordmark from './Wordmark.astro';
+import { restaurant, dayOrder, dayLabels, frTime } from '../data/restaurant';
+const year = new Date().getFullYear();
+const same = dayOrder.every((d) => JSON.stringify(restaurant.hours[d]) === JSON.stringify(restaurant.hours.mon));
+const socials = [
+  { label: 'Instagram', href: restaurant.links.instagram },
+  { label: 'TikTok', href: restaurant.links.tiktok },
+].filter((s) => s.href);
+---
+<footer class="border-t border-cream/10 bg-coal pb-28 pt-16 lg:pb-12">
+  <div class="wrap grid gap-12 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
+    <div>
+      <Wordmark size="lg" />
+      <p class="mt-6 max-w-xs text-sm text-cream/55">{restaurant.tagline}.</p>
+    </div>
+    <div>
+      <h2 class="text-[0.75rem] font-semibold uppercase tracking-[0.22em] text-cream/45">Nous trouver</h2>
+      <address class="mt-4 space-y-1 text-sm not-italic text-cream/80">
+        <p>{restaurant.address.street}</p>
+        <p>{restaurant.address.postalCode} {restaurant.address.city}</p>
+        <p class="pt-2"><a href={restaurant.phone.href} class="hover:text-amber">{restaurant.phone.display}</a></p>
+      </address>
+    </div>
+    <div>
+      <h2 class="text-[0.75rem] font-semibold uppercase tracking-[0.22em] text-cream/45">Horaires</h2>
+      <p class="mt-4 text-sm text-cream/80">
+        {same
+          ? <>7 j/7<br />{frTime(restaurant.hours.mon[0].open)} – {frTime(restaurant.hours.mon[0].close)}</>
+          : dayOrder.map((d) => <span class="block">{dayLabels[d]} : {restaurant.hours[d].map((s) => `${frTime(s.open)}–${frTime(s.close)}`).join(', ') || 'fermé'}</span>)}
+      </p>
+    </div>
+    <nav aria-label="Liens du pied de page">
+      <h2 class="text-[0.75rem] font-semibold uppercase tracking-[0.22em] text-cream/45">Liens</h2>
+      <ul class="mt-4 space-y-2 text-sm text-cream/80">
+        <li><a href={url('/#carte')} class="hover:text-amber">La carte</a></li>
+        <li><a href={restaurant.ordering.uberEats} target="_blank" rel="noopener" class="hover:text-amber">Uber Eats</a></li>
+        <li><a href={restaurant.ordering.deliveroo} target="_blank" rel="noopener" class="hover:text-amber">Deliveroo</a></li>
+        {socials.map((s) => <li><a href={s.href} target="_blank" rel="noopener" class="hover:text-amber">{s.label}</a></li>)}
+      </ul>
+    </nav>
+  </div>
+  <div class="wrap mt-14 flex flex-col gap-3 border-t border-cream/10 pt-6 text-xs text-cream/45 sm:flex-row sm:items-center sm:justify-between">
+    <p>© {year} {restaurant.legal.company} — SIRET {restaurant.legal.siret}</p>
+    <p class="flex gap-5">
+      <a href={url('/mentions-legales')} class="hover:text-cream">Mentions légales</a>
+      <a href={url('/confidentialite')} class="hover:text-cream">Confidentialité</a>
+    </p>
+  </div>
+</footer>

@@ -1,0 +1,14 @@
+---
+const words = ['Smash burgers', 'Riz crousty', 'Pain maison', 'Finger foods', 'Ouvert 7 j/7', '11 h 30 → minuit', 'Sur place', 'À emporter', 'Livraison'];
+const row = [...words, ...words];
+---
+<div class="relative overflow-hidden border-y border-cream/10 bg-amber py-4 text-coal" aria-hidden="true">
+  <div class="ticker-track flex w-max">
+    {row.map((w) => (
+      <span class="display flex items-center whitespace-nowrap px-6 text-[1.75rem] sm:text-[2.1rem]">
+        {w}
+        <svg class="ml-12 h-4 w-4" viewBox="0 0 16 16"><path d="M8 0l2 6 6 2-6 2-2 6-2-6-6-2 6-2z" fill="currentColor"/></svg>
+      </span>
+    ))}
+  </div>
+</div>

@@ -1,0 +1,13 @@
+---
+import { restaurant } from '../data/restaurant';
+export interface Props { class?: string }
+const { class: cls = '' } = Astro.props;
+---
+<p
+  class:list={['open-status inline-flex items-center gap-2.5 text-[0.9rem] font-medium', cls]}
+  data-hours={JSON.stringify(restaurant.hours)}
+  aria-live="polite"
+>
+  <span class="status-dot pulse-dot h-2 w-2 shrink-0 rounded-full bg-amber" aria-hidden="true"></span>
+  <span class="status-text">Ouvert 7 j/7 · 11 h 30 – minuit</span>
+</p>

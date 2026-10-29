@@ -1,0 +1,18 @@
+---
+import { restaurant } from '../data/restaurant';
+---
+<section class="grain relative overflow-hidden bg-amber py-24 text-coal sm:py-32" aria-labelledby="final-title">
+  <div class="pointer-events-none absolute -bottom-[0.18em] left-1/2 -translate-x-1/2 select-none whitespace-nowrap font-display text-[32vw] uppercase leading-none text-white/[0.18]" aria-hidden="true">MTB</div>
+  <div class="wrap relative text-center">
+    <h2 id="final-title" class="display mx-auto max-w-5xl text-[clamp(3.2rem,11vw,8.5rem)]" data-reveal>
+      Un petit creux <span class="accent-serif">ce soir&nbsp;?</span>
+    </h2>
+    <p class="mx-auto mt-6 max-w-xl text-lg text-coal/80" data-reveal style="--d:1">Ouvert tous les jours jusqu’à minuit, au {restaurant.address.street}.</p>
+    <div class="mt-10 flex flex-wrap justify-center gap-3" data-reveal style="--d:2">
+      <a href="#carte" class="btn bg-coal text-cream hover:bg-coal-700">Voir la carte</a>
+      <a href={restaurant.phone.href} class="btn bg-cream text-coal hover:bg-white">Appeler</a>
+      <a href={restaurant.links.directions} target="_blank" rel="noopener" class="btn border border-coal/40 hover:bg-coal/10">Itinéraire</a>
+      <a href="#commander" class="btn border border-coal/40 hover:bg-coal/10">Commander en ligne</a>
+    </div>
+  </div>
+</section>

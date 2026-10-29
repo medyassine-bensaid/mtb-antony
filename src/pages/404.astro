@@ -1,0 +1,14 @@
+---
+import { url } from '../lib/url';
+import Base from '../layouts/Base.astro';
+---
+<Base title="Page introuvable — METS-TOI BIEN (MTB)" noindex>
+  <section class="wrap flex min-h-[80svh] flex-col items-start justify-center pt-[var(--header-h)]">
+    <p class="eyebrow">Erreur 404</p>
+    <h1 class="display mt-5 text-[clamp(3.4rem,13vw,9rem)]">Cette page <span class="accent-serif text-amber">s’est fait la malle.</span></h1>
+    <div class="mt-10 flex flex-wrap gap-3">
+      <a href={url('/')} class="btn btn-primary">Retour à l’accueil</a>
+      <a href={url('/#carte')} class="btn btn-ghost">Voir la carte</a>
+    </div>
+  </section>
+</Base>

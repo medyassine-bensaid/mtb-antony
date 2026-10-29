@@ -1,0 +1,9 @@
+{
+  "name": "METS-TOI BIEN (MTB) — Antony",
+  "short_name": "MTB",
+  "start_url": "./",
+  "display": "browser",
+  "background_color": "#14110E",
+  "theme_color": "#14110E",
+  "icons": [{ "src": "apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }]
+}

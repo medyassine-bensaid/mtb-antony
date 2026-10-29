@@ -1,0 +1,43 @@
+---
+import Base from '../layouts/Base.astro';
+import LegalPage from '../components/LegalPage.astro';
+import { restaurant } from '../data/restaurant';
+const l = restaurant.legal;
+---
+<Base title={`Mentions légales — ${restaurant.fullName}`} description="Mentions légales du site de METS-TOI BIEN (MTB), Antony.">
+  <LegalPage title="Mentions légales" updated="29 octobre 2026">
+    <section>
+      <h2>Éditeur du site</h2>
+      <p>
+        {l.company} ({restaurant.shortName}), {l.form}<br />
+        Siège : {l.registeredOffice}<br />
+        {l.rcs} — SIRET : {l.siret}<br />
+        Activité : {l.naf}<br />
+        Capital social : {l.shareCapital}<br />
+        N° TVA intracommunautaire : {l.vat}<br />
+        Téléphone : <a href={restaurant.phone.href}>{restaurant.phone.display}</a>
+        {l.email && <><br />E-mail : <a href={`mailto:${l.email}`}>{l.email}</a></>}
+      </p>
+      <p>Directeur de la publication : {l.publicationDirector}</p>
+    </section>
+    <section>
+      <h2>Hébergement</h2>
+      <p>
+        <!-- Update if the site moves to another host — see docs/DEPLOYMENT.md -->
+        GitHub Pages, service de GitHub, Inc. — 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, États-Unis — <a href="https://pages.github.com" rel="noopener">pages.github.com</a>
+      </p>
+    </section>
+    <section>
+      <h2>Propriété intellectuelle</h2>
+      <p>Les textes, le design, les photographies et les illustrations de ce site sont protégés. Toute reproduction sans autorisation est interdite. Les marques Uber Eats, Deliveroo et Google appartiennent à leurs propriétaires respectifs.</p>
+    </section>
+    <section>
+      <h2>Informations sur la carte</h2>
+      <p>Les plats et prix sont donnés à titre indicatif et peuvent évoluer. Les prix pratiqués au restaurant et sur les plateformes de livraison peuvent différer. Pour toute question sur les allergènes, adressez-vous à l’équipe avant de commander.</p>
+    </section>
+    <section>
+      <h2>Liens externes</h2>
+      <p>Les commandes en ligne sont réalisées sur les sites d’Uber Eats et de Deliveroo, selon leurs propres conditions. {l.company} n’est pas responsable du contenu de ces sites.</p>
+    </section>
+  </LegalPage>
+</Base>

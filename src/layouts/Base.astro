@@ -1,0 +1,148 @@
+---
+import { url } from '../lib/url';
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import MobileBar from '../components/MobileBar.astro';
+import { restaurant, dayOrder, schemaDay } from '../data/restaurant';
+import { menu } from '../data/menu';
+
+export interface Props {
+  title?: string;
+  description?: string;
+  /** Adds the Restaurant JSON-LD (homepage only). */
+  schema?: boolean;
+  noindex?: boolean;
+}
+
+const {
+  title = `${restaurant.fullName} — Smash burgers & riz crousty à Antony`,
+  description = restaurant.description,
+  schema = false,
+  noindex = false,
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const ogImage = new URL(url('/og.png'), Astro.site);
+
+const r = restaurant;
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': ['Restaurant', 'FastFoodRestaurant'],
+  '@id': new URL(url('/#restaurant'), Astro.site).href,
+  name: r.fullName,
+  alternateName: [r.name, r.shortName, 'Mets toi bien Antony'],
+  description: r.description,
+  url: new URL(url('/'), Astro.site).href,
+  image: ogImage.href,
+  telephone: r.phone.e164,
+  priceRange: '€',
+  servesCuisine: ['Burgers', 'Smash burgers', 'Sandwichs', 'Riz crousty', 'Fast food'],
+  acceptsReservations: false,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: r.address.street,
+    postalCode: r.address.postalCode,
+    addressLocality: r.address.city,
+    addressRegion: r.address.region,
+    addressCountry: r.address.country,
+  },
+  geo: { '@type': 'GeoCoordinates', latitude: r.geo.lat, longitude: r.geo.lng },
+  hasMap: r.links.googleMaps,
+  openingHoursSpecification: dayOrder.flatMap((d) =>
+    r.hours[d].map((s) => ({
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: schemaDay[d],
+      opens: s.open,
+      closes: s.close === '24:00' ? '23:59' : s.close,
+    })),
+  ),
+  potentialAction: [
+    {
+      '@type': 'OrderAction',
+      target: [r.ordering.uberEats, r.ordering.deliveroo],
+    },
+  ],
+  hasMenu: {
+    '@type': 'Menu',
+    name: 'La carte',
+    url: new URL(url('/#carte'), Astro.site).href,
+    inLanguage: 'fr',
+    hasMenuSection: menu.map((c) => ({
+      '@type': 'MenuSection',
+      name: c.name,
+      hasMenuItem: c.items.map((i) => ({
+        '@type': 'MenuItem',
+        name: i.name,
+        ...(i.description ? { description: i.description } : {}),
+        ...(i.price !== undefined
+          ? { offers: { '@type': 'Offer', price: (i.price / 100).toFixed(2), priceCurrency: 'EUR' } }
+          : {}),
+      })),
+    })),
+  },
+  sameAs: [r.links.instagram, r.links.tiktok, r.ordering.uberEats, r.ordering.deliveroo].filter(Boolean),
+};
+---
+
+<!doctype html>
+<html lang="fr" class="no-js">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex" />}
+    <meta name="theme-color" content="#14110E" />
+    <meta name="format-detection" content="telephone=no" />
+
+    <link rel="icon" href={url('/favicon.svg')} type="image/svg+xml" />
+    <link rel="icon" href={url('/favicon.png')} type="image/png" sizes="32x32" />
+    <link rel="apple-touch-icon" href={url('/apple-touch-icon.png')} />
+    <link rel="manifest" href={url('/site.webmanifest')} />
+    <link rel="sitemap" href={url('/sitemap-index.xml')} />
+
+    <meta property="og:type" content="restaurant.restaurant" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:site_name" content={restaurant.fullName} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="METS-TOI BIEN (MTB), Antony — smash burgers, sandwichs, riz crousty" />
+    <meta property="restaurant:contact_info:street_address" content={restaurant.address.street} />
+    <meta property="restaurant:contact_info:locality" content={restaurant.address.city} />
+    <meta property="restaurant:contact_info:postal_code" content={restaurant.address.postalCode} />
+    <meta property="restaurant:contact_info:country_name" content="France" />
+    <meta property="restaurant:contact_info:phone_number" content={restaurant.phone.e164} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="geo.region" content="FR-92" />
+    <meta name="geo.placename" content="Antony" />
+    <meta name="geo.position" content={`${restaurant.geo.lat};${restaurant.geo.lng}`} />
+
+    {schema && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
+
+    <script is:inline>
+      document.documentElement.classList.replace('no-js', 'js');
+    </script>
+  </head>
+  <body class="min-h-screen">
+    <a href="#contenu" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-amber focus:px-5 focus:py-3 focus:text-coal">
+      Aller au contenu
+    </a>
+    <Header />
+    <main id="contenu">
+      <slot />
+    </main>
+    <Footer />
+    <MobileBar />
+
+    <script>
+      import { initSite } from '../scripts/site';
+      initSite();
+    </script>
+  </body>
+</html>

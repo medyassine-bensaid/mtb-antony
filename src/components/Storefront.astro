@@ -1,0 +1,120 @@
+---
+/**
+ * Stylised illustration of the MTB storefront (dark frame, large glass
+ * windows, warm interior light, round lit sign by the door).
+ * It is an illustration — not a photograph — and is labelled as such.
+ * Replace with an authorised photo via src/data/photos.ts.
+ */
+export interface Props { class?: string }
+const { class: cls = '' } = Astro.props;
+---
+<svg
+  class={cls}
+  viewBox="0 0 600 760"
+  role="img"
+  aria-label="Illustration de la vitrine de Mets-toi bien : grandes baies vitrées éclairées en lumière chaude"
+  preserveAspectRatio="xMidYMid slice"
+>
+  <defs>
+    <radialGradient id="sf-glow" cx="50%" cy="38%" r="75%">
+      <stop offset="0" stop-color="#FFC877" />
+      <stop offset="0.35" stop-color="#F09A35" />
+      <stop offset="0.7" stop-color="#9A4A16" />
+      <stop offset="1" stop-color="#3A1C0B" />
+    </radialGradient>
+    <radialGradient id="sf-lamp" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#FFF3D6" />
+      <stop offset="0.4" stop-color="#FFD58E" stop-opacity="0.9" />
+      <stop offset="1" stop-color="#FFB347" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="sf-floor" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#F4A940" stop-opacity="0.35" />
+      <stop offset="1" stop-color="#14110E" stop-opacity="0" />
+    </linearGradient>
+    <linearGradient id="sf-glass" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fff" stop-opacity="0.12" />
+      <stop offset="0.4" stop-color="#fff" stop-opacity="0" />
+    </linearGradient>
+    <clipPath id="sf-win"><rect x="44" y="150" width="512" height="470" /></clipPath>
+  </defs>
+
+  <!-- Night sky / wall -->
+  <rect width="600" height="760" fill="#0E0C0A" />
+  <rect x="0" y="0" width="600" height="120" fill="#16120F" />
+
+  <!-- Fascia -->
+  <rect x="20" y="70" width="560" height="64" fill="#1C1814" />
+  <text x="300" y="118" text-anchor="middle" font-family="Anton, Impact, sans-serif" font-size="44" letter-spacing="6" fill="#F4EBDD" opacity="0.92">METS-TOI BIEN</text>
+
+  <!-- Window frame -->
+  <rect x="26" y="134" width="548" height="504" fill="#1C1814" />
+
+  <!-- Interior -->
+  <g clip-path="url(#sf-win)">
+    <rect class="glow-breathe" x="44" y="150" width="512" height="470" fill="url(#sf-glow)" />
+
+    <!-- back wall shelf line + menu board -->
+    <rect x="70" y="250" width="200" height="90" rx="3" fill="#2A1508" opacity="0.55" />
+    <g fill="#FFD9A0" opacity="0.5">
+      <rect x="86" y="266" width="90" height="6" /><rect x="86" y="282" width="120" height="6" />
+      <rect x="86" y="298" width="70" height="6" /><rect x="86" y="314" width="110" height="6" />
+    </g>
+
+    <!-- pendant lamps -->
+    <g>
+      <line x1="170" y1="150" x2="170" y2="214" stroke="#2A1508" stroke-width="2" />
+      <circle cx="170" cy="222" r="46" fill="url(#sf-lamp)" />
+      <circle cx="170" cy="222" r="9" fill="#FFF6E3" />
+      <line x1="330" y1="150" x2="330" y2="194" stroke="#2A1508" stroke-width="2" />
+      <circle cx="330" cy="202" r="46" fill="url(#sf-lamp)" />
+      <circle cx="330" cy="202" r="9" fill="#FFF6E3" />
+      <line x1="470" y1="150" x2="470" y2="224" stroke="#2A1508" stroke-width="2" />
+      <circle cx="470" cy="232" r="46" fill="url(#sf-lamp)" />
+      <circle cx="470" cy="232" r="9" fill="#FFF6E3" />
+    </g>
+
+    <!-- tables & chairs (silhouettes) -->
+    <g fill="#2A1407" opacity="0.92">
+      <rect x="64" y="470" width="150" height="10" rx="2" />
+      <rect x="132" y="480" width="8" height="120" />
+      <rect x="60" y="440" width="34" height="60" rx="8" />
+      <rect x="186" y="440" width="34" height="60" rx="8" />
+      <rect x="64" y="500" width="6" height="100" /><rect x="214" y="500" width="6" height="100" />
+
+      <rect x="262" y="486" width="150" height="10" rx="2" />
+      <rect x="330" y="496" width="8" height="104" />
+      <rect x="256" y="456" width="34" height="60" rx="8" />
+      <rect x="386" y="456" width="34" height="60" rx="8" />
+
+      <rect x="436" y="478" width="110" height="10" rx="2" />
+      <rect x="488" y="488" width="8" height="112" />
+    </g>
+    <rect x="44" y="590" width="512" height="30" fill="#1A0D05" opacity="0.7" />
+  </g>
+
+  <!-- mullions -->
+  <g fill="#1C1814">
+    <rect x="212" y="150" width="10" height="470" />
+    <rect x="404" y="150" width="14" height="470" />
+    <rect x="44" y="566" width="512" height="8" />
+  </g>
+
+  <!-- door + round lit sign -->
+  <g>
+    <rect x="418" y="150" width="138" height="470" fill="#000" opacity="0.18" />
+    <rect x="426" y="372" width="4" height="70" rx="2" fill="#C9B79C" />
+    <circle cx="487" cy="300" r="34" fill="#FFE7A8" opacity="0.25" />
+    <circle cx="487" cy="300" r="25" fill="#FFF1C9" />
+    <text x="487" y="307" text-anchor="middle" font-family="Anton, Impact, sans-serif" font-size="18" fill="#7A3A0E">MTB</text>
+  </g>
+
+  <!-- glass reflections -->
+  <rect x="44" y="150" width="512" height="470" fill="url(#sf-glass)" />
+  <path d="M60 150 L130 150 L60 300 Z" fill="#fff" opacity="0.05" />
+  <path d="M300 150 L330 150 L230 380 L210 380 Z" fill="#fff" opacity="0.04" />
+
+  <!-- pavement + spill light -->
+  <rect x="0" y="638" width="600" height="122" fill="#120F0C" />
+  <rect x="26" y="638" width="548" height="110" fill="url(#sf-floor)" />
+  <rect x="0" y="636" width="600" height="4" fill="#2A231C" />
+</svg>
