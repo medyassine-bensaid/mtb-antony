@@ -140,18 +140,41 @@ function initReveals() {
     els.forEach((el) => el.classList.add('is-in'));
     return;
   }
+  const pending = new Set(els);
+  const reveal = (el: Element) => {
+    el.classList.add('is-in');
+    pending.delete(el as HTMLElement);
+    io.unobserve(el);
+  };
   const io = new IntersectionObserver(
     (entries) => {
+      // Reveal what enters the viewport, and anything already scrolled past
+      // (jump links / fast scrolls can skip an element entirely).
       entries.forEach((e) => {
-        if (e.isIntersecting) {
-          e.target.classList.add('is-in');
-          io.unobserve(e.target);
-        }
+        if (e.isIntersecting || e.boundingClientRect.bottom < 0) reveal(e.target);
       });
     },
     { rootMargin: '0px 0px -8% 0px', threshold: 0.08 },
   );
   els.forEach((el) => io.observe(el));
+
+  // Safety net: on scroll, reveal anything whose top is above the bottom of the viewport.
+  let queued = false;
+  const sweep = () => {
+    queued = false;
+    pending.forEach((el) => {
+      if (el.getBoundingClientRect().top < window.innerHeight) reveal(el);
+    });
+    if (!pending.size) window.removeEventListener('scroll', onScroll);
+  };
+  const onScroll = () => {
+    if (!queued) {
+      queued = true;
+      setTimeout(sweep, 150);
+    }
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('hashchange', sweep);
 }
 
 function initMenuSpy() {
