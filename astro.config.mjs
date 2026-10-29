@@ -2,9 +2,9 @@ import { defineConfig } from 'astro/config';
 import tailwind from '@astrojs/tailwind';
 import sitemap from '@astrojs/sitemap';
 
-// Public URL. Override with SITE_URL / BASE_PATH (e.g. a custom domain → BASE_PATH=/).
-const site = process.env.SITE_URL || 'https://medyassine-bensaid.github.io';
-const base = process.env.BASE_PATH ?? '/mtb-antony';
+// Main public URL (Vercel). The GitHub Pages mirror overrides SITE_URL / BASE_PATH in its workflow.
+const site = process.env.SITE_URL || 'https://metstoibien.vercel.app';
+const base = process.env.BASE_PATH ?? '/';
 
 export default defineConfig({
   site,

@@ -93,7 +93,7 @@ const jsonLd = {
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    {noindex && <meta name="robots" content="noindex" />}
+    {(noindex || import.meta.env.PUBLIC_NOINDEX === '1') && <meta name="robots" content="noindex" />}
     <meta name="theme-color" content="#14110E" />
     <meta name="format-detection" content="telephone=no" />
 

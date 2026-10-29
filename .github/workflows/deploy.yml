@@ -28,9 +28,10 @@ jobs:
       - run: npm run check
       - run: npm run build
         env:
-          # For a custom domain later: SITE_URL=https://www.example.fr and BASE_PATH=/
+          # Mirror only: the main site is on Vercel, so keep this copy out of search results.
           SITE_URL: https://${{ github.repository_owner }}.github.io
           BASE_PATH: /${{ github.event.repository.name }}
+          PUBLIC_NOINDEX: '1'
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
